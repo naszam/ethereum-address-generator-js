@@ -2,7 +2,7 @@
 const BIP39 = require("bip39")
 const hdkey = require('ethereumjs-wallet/hdkey')
 const Wallet = require('ethereumjs-wallet')
-
+const keccak256 = require('js-sha3').keccak256;
 // Add functions here
 
 // Generate a random mnemonic (uses crypto.randomBytes under the hood), defaults to 128-bits of entropy
@@ -25,6 +25,12 @@ function generatePrivKey(mnemonic){
 function derivePubKey(privKey){
 	const wallet = Wallet.fromPrivateKey(privKey)
 	return wallet.getPublicKey()
+}
+
+function deriveEthAddress(pubKey){
+	const address = keccak256(pubKey) // keccak256 hash of publicKey
+	// Get the last 20 bytes of the public key
+	return "0x" + address.substring(address.length - 40, address.length)
 }
 
 /*

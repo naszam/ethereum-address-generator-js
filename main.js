@@ -41,7 +41,7 @@ function signTx(privKey, txData){
 }
 
 function getSignerAddress(signedTx){
-	return "0x" + signedTX.getSenderAddress().toString('hex')
+	return "0x" + signedTx.getSenderAddress().toString('hex')
 }
 
 /*
